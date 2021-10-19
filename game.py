@@ -5,17 +5,29 @@
 # could flash turtle red when tries to move into an obstacle
 import turtle
 from Turtle import CustomTurtle
-from World import World
+from World import World, WORLDS
 from config import STEP_SIZE
 
 
 class Game:
 
     def __init__(self):
-        self.create_base_world()
+        self.world = 0
+        self.current_world = WORLDS[self.world]
+        self.myrtle = self.create_turtle()
+        self.myrtle.goto(STEP_SIZE/2, STEP_SIZE/2)
+        turtle.onkey(self.myrtle.move_forward, 'Up')
+        turtle.onkey(self.myrtle.move_backward, 'Down')
+        turtle.onkey(self.myrtle.turn_left, 'Left')
+        turtle.onkey(self.myrtle.turn_right, 'Right')
 
     def create_turtle(self):
-        return CustomTurtle('blue', 2) 
+        return CustomTurtle(
+            'blue',
+            2,
+            self.current_world,
+            self.find_next_world
+        )
 
     def create_base_world(self):
         screen = turtle.Screen()
@@ -27,18 +39,30 @@ class Game:
         canvas = screen.getcanvas()
         canvas.itemconfig(screen._bgpic, anchor="sw")
 
+        self.draw_world()
+    
+    def draw_world(self):
+        self.current_world.draw_obstacles()
+        self.current_world.draw_portal()
+    
+    # TODO
+    def clear_world(self):
+        pass
 
-game = Game()
-world = World()
-world.draw_obstacles()
-myrtle = game.create_turtle()
-myrtle.goto(STEP_SIZE/2, STEP_SIZE/2)
+    def find_next_world(self):
+        print('cats')
+        self.world += 1
+        self.current_world = WORLDS[self.world]
+
+        self.draw_world()
+
+
 turtle.listen()
 
-turtle.onkey(myrtle.move_forward, 'Up')
-turtle.onkey(myrtle.move_backward, 'Down')
-turtle.onkey(myrtle.turn_left, 'Left')
-turtle.onkey(myrtle.turn_right, 'Right')
+game = Game()
+game.create_base_world()
+
+
 
 
 turtle.mainloop()

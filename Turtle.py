@@ -1,11 +1,11 @@
 import turtle
 from config import STEP_SIZE, NUM_GRID_ROWS
-from World import World
+from World import WORLDS
 
 
 class CustomTurtle(turtle.Turtle):
 
-    def __init__(self, colour, speed):
+    def __init__(self, colour, speed, current_world, next_world):
         super().__init__()
         self.color(colour)
         self.speed(speed)
@@ -13,14 +13,16 @@ class CustomTurtle(turtle.Turtle):
         self.penup()
         self.x_pos = 0
         self.y_pos = 0
-        world = World()
-        self.portal_position = world.portal_position
-        self.obstacle_positions = world.obstacle_positions
+        self.next_world = next_world
+        self.update_world_settings(current_world)
+
+    def update_world_settings(self, current_world):
+        self.current_world = current_world
 
     def move_forward(self):
         # figure out new position
         direction = self.heading()
-        print(direction)
+        print(self.x_pos, self.y_pos)
         if direction == 90.0:  # facing up
             new_pos = (self.x_pos, self.y_pos + 1)
         if direction == 0.0:  # facing right
@@ -35,7 +37,8 @@ class CustomTurtle(turtle.Turtle):
             self.x_pos = new_pos[0]
             self.y_pos = new_pos[1]
             self.forward(STEP_SIZE)
-            if new_pos == self.portal_position:
+            print(new_pos, self.current_world.portal_position)
+            if new_pos == self.current_world.portal_position:
                 self.enter_portal()
 
     def move_backward(self):  # challenge for them to add themselves?
@@ -55,7 +58,7 @@ class CustomTurtle(turtle.Turtle):
             self.x_pos = new_pos[0]
             self.y_pos = new_pos[1]
             self.backward(STEP_SIZE)
-            if new_pos == self.portal_position:
+            if new_pos == self.current_world.portal_position:
                 self.enter_portal()
 
     def turn_right(self):
@@ -65,7 +68,7 @@ class CustomTurtle(turtle.Turtle):
         self.left(90)
 
     def is_clear(self, new_pos):
-        if new_pos in self.obstacle_positions:
+        if new_pos in self.current_world.obstacle_positions:
             return False
         if new_pos[0] < 0 or new_pos[0] >= NUM_GRID_ROWS:
             return False
@@ -75,3 +78,4 @@ class CustomTurtle(turtle.Turtle):
 
     def enter_portal(self):
         print('portal')
+        self.next_world()
