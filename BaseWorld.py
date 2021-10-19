@@ -1,44 +1,37 @@
 import turtle
+
 # import tkinter
+# from turtle import TurtleScreen, RawTurtle
 
+# class BaseWorld(TurtleScreen):
 
-def create_base_world():
-    # turtle.setup(520, 520)
-    screen = turtle.Screen()
-    screen.setup(520, 520)
-    screen.setworldcoordinates(0, 0, 500, 500)
-    screen.bgpic('grid-white.gif')
-    screen.bgcolor('pink')
+#     def __init__(self, cv):
+#         super().__init__(cv)
 
-    canvas = screen.getcanvas()
-    canvas.itemconfig(screen._bgpic, anchor="sw")
+#     def window_geometry(self):
 
-    ##
-    # photoimage = screen._bgpics['grid-white.gif']
-    # pw = photoimage.width()
-    # ph = photoimage.height()
+#         ''' Add a new method, or modify an existing one. '''
 
-    # canvas = screen.getcanvas()
-    # canvas.configure(borderwidth=0)
-    # screen.screensize(pw-100, ph-100)
-    # screen.bgpic('grid-white.gif')
-    ##
+#         width, height = self._window_size()
+#         return (-width//2, -height//2, width//2, height//2)
 
-    # screen.bgcolor('red')
-    return screen
+# root = tkinter.Tk()
 
+# canvas = tkinter.Canvas(root)
+# canvas.pack(side=tkinter.LEFT)
 
-# from turtle import Turtle, Screen
+# screen = BaseWorld(canvas)
 
-# screen = Screen()
-# screen.setup(500, 500)
-# screen.setworldcoordinates(0, 0, 500, 500)
+# turtle = RawTurtle(screen)
 
-# screen.bgpic("cat.gif")
-# canvas = screen.getcanvas()
-# canvas.itemconfig(screen._bgpic, anchor="sw")  # pylint: disable=W0212
+# print(screen.window_geometry())
 
-# turtle = Turtle()
-# turtle.dot(100)  # draw a large dot at (0, 0)
+# turtle.dot(50)
 
 # screen.mainloop()
+
+
+
+####
+
+

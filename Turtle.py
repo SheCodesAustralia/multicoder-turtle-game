@@ -1,5 +1,6 @@
 import turtle
-from config import STEP_SIZE, OBSTACLE_POSITIONS, NUM_GRID_ROWS
+from config import STEP_SIZE, NUM_GRID_ROWS
+from World import World
 
 
 class CustomTurtle(turtle.Turtle):
@@ -12,10 +13,14 @@ class CustomTurtle(turtle.Turtle):
         self.penup()
         self.x_pos = 0
         self.y_pos = 0
+        world = World()
+        self.portal_position = world.portal_position
+        self.obstacle_positions = world.obstacle_positions
 
     def move_forward(self):
         # figure out new position
         direction = self.heading()
+        print(direction)
         if direction == 90.0:  # facing up
             new_pos = (self.x_pos, self.y_pos + 1)
         if direction == 0.0:  # facing right
@@ -30,8 +35,10 @@ class CustomTurtle(turtle.Turtle):
             self.x_pos = new_pos[0]
             self.y_pos = new_pos[1]
             self.forward(STEP_SIZE)
+            if new_pos == self.portal_position:
+                self.enter_portal()
 
-    def move_backward(self):
+    def move_backward(self):  # challenge for them to add themselves?
         # figure out new position
         direction = self.heading()
         if direction == 90.0:  # facing up
@@ -48,22 +55,23 @@ class CustomTurtle(turtle.Turtle):
             self.x_pos = new_pos[0]
             self.y_pos = new_pos[1]
             self.backward(STEP_SIZE)
+            if new_pos == self.portal_position:
+                self.enter_portal()
 
     def turn_right(self):
         self.right(90)
-        print(self.heading())
 
     def turn_left(self):
         self.left(90)
-        print(self.heading())
 
     def is_clear(self, new_pos):
-        print(new_pos)
-        print(new_pos not in OBSTACLE_POSITIONS)
-        if new_pos in OBSTACLE_POSITIONS:
+        if new_pos in self.obstacle_positions:
             return False
-        if new_pos[0] < 0 or new_pos[0] > 10:
+        if new_pos[0] < 0 or new_pos[0] >= NUM_GRID_ROWS:
             return False
-        if new_pos[1] < 0 or new_pos[1] > 10:
+        if new_pos[1] < 0 or new_pos[1] >= NUM_GRID_ROWS:
             return False
         return True
+
+    def enter_portal(self):
+        print('portal')
