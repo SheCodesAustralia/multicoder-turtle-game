@@ -1,11 +1,11 @@
 import turtle
 from config import STEP_SIZE, NUM_GRID_ROWS
-from World import WORLDS
+from worlds import WORLDS
 
 
 class CustomTurtle(turtle.Turtle):
 
-    def __init__(self, colour, speed, current_world, next_world):
+    def __init__(self, colour, speed, game):
         super().__init__()
         self.color(colour)
         self.speed(speed)
@@ -13,11 +13,12 @@ class CustomTurtle(turtle.Turtle):
         self.penup()
         self.x_pos = 0
         self.y_pos = 0
-        self.next_world = next_world
-        self.update_world_settings(current_world)
+        self.game = game
+        # self.next_world = self.game.find_next_world
+        # self.update_world_settings(self.game.current_world)
 
-    def update_world_settings(self, current_world):
-        self.current_world = current_world
+    # def update_world_settings(self, current_world):
+    #     self.current_world = current_world
 
     def move_forward(self):
         # figure out new position
@@ -78,4 +79,4 @@ class CustomTurtle(turtle.Turtle):
 
     def enter_portal(self):
         print('portal')
-        self.next_world()
+        self.game.find_next_world()

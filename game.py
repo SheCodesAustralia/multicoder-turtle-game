@@ -5,7 +5,7 @@
 # could flash turtle red when tries to move into an obstacle
 import turtle
 from Turtle import CustomTurtle
-from World import World, WORLDS
+from worlds import WORLDS
 from config import STEP_SIZE
 
 
@@ -16,6 +16,8 @@ class Game:
         self.current_world = WORLDS[self.world]
         self.myrtle = self.create_turtle()
         self.myrtle.goto(STEP_SIZE/2, STEP_SIZE/2)
+
+        ## move into turtle class
         turtle.onkey(self.myrtle.move_forward, 'Up')
         turtle.onkey(self.myrtle.move_backward, 'Down')
         turtle.onkey(self.myrtle.turn_left, 'Left')
@@ -25,8 +27,9 @@ class Game:
         return CustomTurtle(
             'blue',
             2,
-            self.current_world,
-            self.find_next_world
+            self
+            # self.current_world,
+            # self.find_next_world
         )
 
     def create_base_world(self):
@@ -44,7 +47,7 @@ class Game:
     def draw_world(self):
         self.current_world.draw_obstacles()
         self.current_world.draw_portal()
-    
+
     # TODO
     def clear_world(self):
         pass
@@ -66,3 +69,7 @@ game.create_base_world()
 
 
 turtle.mainloop()
+
+
+# TODO
+## lookup function for what is in the cell
