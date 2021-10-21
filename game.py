@@ -15,9 +15,8 @@ class Game:
         self.world = 0
         self.current_world = WORLDS[self.world]
         self.myrtle = self.create_turtle()
-        self.myrtle.goto(STEP_SIZE/2, STEP_SIZE/2)
 
-        ## move into turtle class
+        # move into turtle class
         turtle.onkey(self.myrtle.move_forward, 'Up')
         turtle.onkey(self.myrtle.move_backward, 'Down')
         turtle.onkey(self.myrtle.turn_left, 'Left')
@@ -28,8 +27,6 @@ class Game:
             'blue',
             2,
             self
-            # self.current_world,
-            # self.find_next_world
         )
 
     def create_base_world(self):
@@ -43,7 +40,7 @@ class Game:
         canvas.itemconfig(screen._bgpic, anchor="sw")
 
         self.draw_world()
-    
+
     def draw_world(self):
         self.current_world.draw_obstacles()
         self.current_world.draw_portal()
@@ -63,9 +60,8 @@ class Game:
 turtle.listen()
 
 game = Game()
+# game.myrtle.goto(STEP_SIZE/2, STEP_SIZE/2)
 game.create_base_world()
-
-
 
 
 turtle.mainloop()
