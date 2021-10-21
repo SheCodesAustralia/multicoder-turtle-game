@@ -7,12 +7,12 @@ class CustomTurtle(turtle.Turtle, MoveObject):
 
     def __init__(self, colour, speed, game):
         super(CustomTurtle, self).__init__()
-        # MoveObject.__init__(self)
-        self.set_start_position()
+        MoveObject.__init__(self, game)
+        # self.set_start_position()
         self.color(colour)
         self.shape('turtle')
         self.speed(speed)
-        self.game = game
+        # self.game = game
 
 
 class UserTurtle(CustomTurtle):

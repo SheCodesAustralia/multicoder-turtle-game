@@ -2,12 +2,13 @@ from config import STEP_SIZE, NUM_GRID_ROWS
 
 class MoveObject:
 
-    # def __init__(self):
-    #     print('dogs')
-    
-    def set_start_position(self):
+    def __init__(self, game):
+        self.game = game
         self.x_pos = 0
         self.y_pos = 0
+    
+    def set_start_position(self):
+        pass
 
     def move_forward(self):
         # figure out new position
@@ -23,11 +24,11 @@ class MoveObject:
             new_pos = (self.x_pos - 1, self.y_pos)
 
         # check there is no obstacle there
-        if self.is_clear(new_pos):
+        if not self.game.current_world.cell_has_obstacle(new_pos):
             self.x_pos = new_pos[0]
             self.y_pos = new_pos[1]
             self.forward(STEP_SIZE)
-            if new_pos == self.game.current_world.portal_position:
+            if self.game.current_world.cell_has_portal(new_pos):
                 self.enter_portal()
 
     def move_backward(self):  # challenge for them to add themselves?
@@ -43,11 +44,11 @@ class MoveObject:
             new_pos = (self.x_pos + 1, self.y_pos)
 
         # check there is no obstacle there
-        if self.is_clear(new_pos):
+        if not self.game.current_world.cell_has_obstacle(new_pos):
             self.x_pos = new_pos[0]
             self.y_pos = new_pos[1]
             self.backward(STEP_SIZE)
-            if new_pos == self.game.current_world.portal_position:
+            if self.game.current_world.cell_has_portal(new_pos):
                 self.enter_portal()
 
     def turn_right(self):
@@ -56,17 +57,7 @@ class MoveObject:
     def turn_left(self):
         self.left(90)
 
-    def is_clear(self, new_pos):
-        if new_pos in self.game.current_world.obstacle_positions:
-            return False
-        if new_pos[0] < 0 or new_pos[0] >= NUM_GRID_ROWS:
-            return False
-        if new_pos[1] < 0 or new_pos[1] >= NUM_GRID_ROWS:
-            return False
-        return True
-
     def enter_portal(self):
-        print('portal')
         self.game.find_next_world()
 
     def goto_start_position(self, x_pos, y_pos):
