@@ -17,3 +17,6 @@ class World:
     def draw_portal(self):
         portal_grid_position = convert_coord_to_grid_pos(self.portal_position)
         self.portal = Portal('blue', 'circle', portal_grid_position)
+
+
+# TODO lookup
