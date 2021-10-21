@@ -7,17 +7,20 @@ class CustomTurtle(turtle.Turtle):
     def __init__(self, colour, speed, game):
         super().__init__()
         self.color(colour)
-        self.speed(speed)
         self.shape('turtle')
-        self.penup()
+        self.speed(speed)
         self.x_pos = 0
         self.y_pos = 0
         self.game = game
 
+        turtle.onkey(self.move_forward, 'Up')
+        turtle.onkey(self.move_backward, 'Down')
+        turtle.onkey(self.turn_left, 'Left')
+        turtle.onkey(self.turn_right, 'Right')
+
     def goto_start_position(self):
-        # self.goto(STEP_SIZE/2, STEP_SIZE/2)
-        print('here')
-        self.forward(STEP_SIZE)
+        self.penup()
+        self.goto(STEP_SIZE/2, STEP_SIZE/2)
 
     def move_forward(self):
         # figure out new position

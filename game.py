@@ -6,7 +6,6 @@
 import turtle
 from Turtle import CustomTurtle
 from worlds import WORLDS
-from config import STEP_SIZE
 
 
 class Game:
@@ -14,20 +13,7 @@ class Game:
     def __init__(self):
         self.world = 0
         self.current_world = WORLDS[self.world]
-        self.myrtle = self.create_turtle()
-
-        # move into turtle class
-        turtle.onkey(self.myrtle.move_forward, 'Up')
-        turtle.onkey(self.myrtle.move_backward, 'Down')
-        turtle.onkey(self.myrtle.turn_left, 'Left')
-        turtle.onkey(self.myrtle.turn_right, 'Right')
-
-    def create_turtle(self):
-        return CustomTurtle(
-            'blue',
-            2,
-            self
-        )
+        # self.myrtle = None
 
     def create_base_world(self):
         screen = turtle.Screen()
@@ -60,8 +46,17 @@ class Game:
 turtle.listen()
 
 game = Game()
-# game.myrtle.goto(STEP_SIZE/2, STEP_SIZE/2)
 game.create_base_world()
+
+
+# game.myrtle.color('red')
+
+game.myrtle = CustomTurtle(
+    'red',
+    2,
+    game
+)
+game.myrtle.goto_start_position()
 
 
 turtle.mainloop()
