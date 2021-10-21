@@ -25,7 +25,6 @@ class Game:
         canvas = self.screen.getcanvas()
         canvas.itemconfig(self.screen._bgpic, anchor="sw")
 
-        self.draw_world()
 
     def draw_world(self):
         self.current_world.draw_obstacles()
@@ -33,13 +32,13 @@ class Game:
 
     # TODO
     def clear_world(self):
-        pass
+        turtle.clearscreen()
+        self.create_base_world()
 
     def find_next_world(self):
-        print('cats')
         self.world += 1
         self.current_world = WORLDS[self.world]
-
+        self.clear_world()
         self.draw_world()
 
 
@@ -47,10 +46,7 @@ turtle.listen()
 
 game = Game()
 game.create_base_world()
-
-
-
-# game.myrtle.color('red')
+game.draw_world()
 
 game.myrtle = UserTurtle(
     'red',
