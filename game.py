@@ -4,8 +4,9 @@
 
 # could flash turtle red when tries to move into an obstacle
 import turtle
-from Turtle import CustomTurtle, UserTurtle
+from Turtle import UserTurtle
 from worlds import WORLDS
+from config import STEP_SIZE
 
 
 class Game:
@@ -14,7 +15,6 @@ class Game:
         self.world = 0
         self.current_world = WORLDS[self.world]
         self.screen = turtle.Screen()
-        # self.myrtle = None
 
     def create_base_world(self):
         self.screen.setup(520, 520)
@@ -25,14 +25,18 @@ class Game:
         canvas = self.screen.getcanvas()
         canvas.itemconfig(self.screen._bgpic, anchor="sw")
 
-
     def draw_world(self):
         self.current_world.draw_obstacles()
         self.current_world.draw_portal()
 
-    # TODO
     def clear_world(self):
         turtle.clearscreen()
+        game.myrtle = UserTurtle(
+            'red',
+            2,
+            game
+        )
+        self.myrtle.goto(STEP_SIZE/1, STEP_SIZE/2)
         self.create_base_world()
 
     def find_next_world(self):
@@ -54,9 +58,4 @@ game.myrtle = UserTurtle(
     game
 )
 
-
 turtle.mainloop()
-
-
-# TODO
-## lookup function for what is in the cell

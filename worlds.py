@@ -5,7 +5,7 @@ WORLDS = [
         obstacle_positions=[
             (2, 0), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5)
         ],
-        portal_position=(10, 5)
+        portal_position=(0, 5)
     ),
     World(
         obstacle_positions=[

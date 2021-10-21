@@ -17,7 +17,8 @@ class CustomTurtle(turtle.Turtle, MoveObject):
 
 class UserTurtle(CustomTurtle):
 
-    def __init__(self, *args, **kwargs): # color/speed/etc
+    # TODO: color/speed/etc
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         turtle.onkey(self.move_forward, 'Up')
         turtle.onkey(self.move_backward, 'Down')

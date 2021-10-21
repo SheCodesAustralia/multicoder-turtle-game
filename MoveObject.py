@@ -1,4 +1,5 @@
-from config import STEP_SIZE, NUM_GRID_ROWS
+from config import STEP_SIZE
+
 
 class MoveObject:
 
@@ -6,9 +7,6 @@ class MoveObject:
         self.game = game
         self.x_pos = 0
         self.y_pos = 0
-    
-    def set_start_position(self):
-        pass
 
     def move_forward(self):
         # figure out new position
