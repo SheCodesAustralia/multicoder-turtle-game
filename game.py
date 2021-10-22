@@ -6,7 +6,8 @@
 import turtle
 from Turtle import UserTurtle
 from worlds import WORLDS
-from config import STEP_SIZE
+# from config import STEP_SIZE
+from utils import convert_coord_to_grid_pos
 
 
 class Game:
@@ -30,19 +31,27 @@ class Game:
         self.current_world.draw_portal()
 
     def clear_world(self):
+        # clear the screen and redraw the turtle
         turtle.clearscreen()
         game.myrtle = UserTurtle(
             'red',
             2,
-            game
+            self
         )
-        self.myrtle.goto(STEP_SIZE/1, STEP_SIZE/2)
+        game.myrtle.hideturtle()
+        start_position = convert_coord_to_grid_pos(
+            self.current_world.portal_position
+        )
+        self.myrtle.goto(start_position)
+        game.myrtle.showturtle()
+        self.myrtle.x_pos = self.current_world.portal_position[0]
+        self.myrtle.y_pos = self.current_world.portal_position[1]
         self.create_base_world()
 
     def find_next_world(self):
+        self.clear_world()
         self.world += 1
         self.current_world = WORLDS[self.world]
-        self.clear_world()
         self.draw_world()
 
 
