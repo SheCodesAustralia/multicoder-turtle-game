@@ -1,12 +1,7 @@
-# superclass for world settings
-#   set it up like a grid
-# subclass has a different style
-
 # could flash turtle red when tries to move into an obstacle
 import turtle
-from Turtle import UserTurtle
+from Turtle import UserTurtle, RobotTurtle
 from worlds import WORLDS
-# from config import STEP_SIZE
 from utils import convert_coord_to_grid_pos
 
 
@@ -66,5 +61,13 @@ game.myrtle = UserTurtle(
     2,
     game
 )
+
+game.flippy = RobotTurtle(
+    'purple',
+    2,
+    game
+)
+
+game.flippy.move()
 
 turtle.mainloop()

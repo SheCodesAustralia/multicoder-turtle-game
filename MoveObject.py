@@ -1,12 +1,14 @@
 from config import STEP_SIZE
+from utils import convert_coord_to_grid_pos
 
 
 class MoveObject:
 
-    def __init__(self, game):
+    def __init__(self, game, start_position):
         self.game = game
-        self.x_pos = 0
-        self.y_pos = 0
+        self.x_pos = start_position[0]
+        self.y_pos = start_position[1]
+        self.goto_start_position(start_position)
 
     def move_forward(self):
         # figure out new position
@@ -58,6 +60,10 @@ class MoveObject:
     def enter_portal(self):
         self.game.find_next_world()
 
-    def goto_start_position(self, x_pos, y_pos):
+    def goto_start_position(self, coordinates):
         self.penup()
-        self.goto(x_pos, y_pos)
+        start_position = convert_coord_to_grid_pos(coordinates)
+        self.goto(start_position[0], start_position[1])
+
+    def wait(self, time):
+        self.game.screen.delay(time)
