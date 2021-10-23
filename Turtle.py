@@ -12,7 +12,7 @@ class CustomTurtle(turtle.Turtle, MoveObject):
         self.shape('turtle')
         self.speed(speed)
         self.game = game
-        # self.has_key = False
+        self.has_key = False
 
 
 class UserTurtle(CustomTurtle):

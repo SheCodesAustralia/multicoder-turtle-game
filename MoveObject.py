@@ -32,7 +32,8 @@ class MoveObject:
                 self.forward(STEP_SIZE)
 
         if self.allowed_through_portal:
-            if self.game.current_world.cell_contains_portal(new_pos):
+            if self.game.current_world.cell_contains_portal(new_pos) and \
+                self.game.myrtle.has_key:
                 self.x_pos = new_pos[0]
                 self.y_pos = new_pos[1]
                 self.forward(STEP_SIZE)
@@ -66,7 +67,8 @@ class MoveObject:
             self.x_pos = new_pos[0]
             self.y_pos = new_pos[1]
             self.backward(STEP_SIZE)
-            if self.game.current_world.cell_contains_portal(new_pos):
+            if self.game.current_world.cell_contains_portal(new_pos) and \
+                self.game.myrtle.has_key:
                 self.enter_portal()    
             if self.game.current_world.cell_contains_key(new_pos):
                 self.pickup_key()
@@ -88,3 +90,4 @@ class MoveObject:
     def pickup_key(self):
         self.game.current_world.key.hideturtle()
         self.game.myrtle.color('orange')
+        self.game.myrtle.has_key = True
