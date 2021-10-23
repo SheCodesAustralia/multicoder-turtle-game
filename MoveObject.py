@@ -4,16 +4,16 @@ from utils import convert_coord_to_grid_pos
 
 class MoveObject:
 
-    def __init__(self, game, start_position):
+    def __init__(self, game, allowed_through_portal, start_position):
         self.game = game
         self.x_pos = start_position[0]
         self.y_pos = start_position[1]
+        self.allowed_through_portal = allowed_through_portal
         self.goto_start_position(start_position)
 
     def move_forward(self):
         # figure out new position
         direction = self.heading()
-        print(self.x_pos, self.y_pos)
         if direction == 90.0:  # facing up
             new_pos = (self.x_pos, self.y_pos + 1)
         if direction == 0.0:  # facing right
@@ -25,10 +25,16 @@ class MoveObject:
 
         # check there is no obstacle there
         if not self.game.current_world.cell_has_obstacle(new_pos):
-            self.x_pos = new_pos[0]
-            self.y_pos = new_pos[1]
-            self.forward(STEP_SIZE)
-            if self.game.current_world.cell_has_portal(new_pos):
+            if not self.game.current_world.cell_has_portal(new_pos):
+                self.x_pos = new_pos[0]
+                self.y_pos = new_pos[1]
+                self.forward(STEP_SIZE)
+
+        if self.game.current_world.cell_has_portal(new_pos):
+            if self.allowed_through_portal:
+                self.x_pos = new_pos[0]
+                self.y_pos = new_pos[1]
+                self.forward(STEP_SIZE)
                 self.enter_portal()
 
     def move_backward(self):  # challenge for them to add themselves?
@@ -45,10 +51,16 @@ class MoveObject:
 
         # check there is no obstacle there
         if not self.game.current_world.cell_has_obstacle(new_pos):
-            self.x_pos = new_pos[0]
-            self.y_pos = new_pos[1]
-            self.backward(STEP_SIZE)
-            if self.game.current_world.cell_has_portal(new_pos):
+            if not self.game.current_world.cell_has_portal(new_pos):
+                self.x_pos = new_pos[0]
+                self.y_pos = new_pos[1]
+                self.backward(STEP_SIZE)
+
+        if self.game.current_world.cell_has_portal(new_pos):
+            if self.allowed_through_portal:
+                self.x_pos = new_pos[0]
+                self.y_pos = new_pos[1]
+                self.backward(STEP_SIZE)
                 self.enter_portal()
 
     def turn_right(self):
@@ -65,5 +77,3 @@ class MoveObject:
         start_position = convert_coord_to_grid_pos(coordinates)
         self.goto(start_position[0], start_position[1])
 
-    def wait(self, time):
-        self.game.screen.delay(time)

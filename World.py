@@ -6,7 +6,7 @@ from config import NUM_GRID_ROWS
 
 class World:
 
-    def __init__(self, obstacle_positions=None, portal_position=None):
+    def __init__(self, obstacle_positions=None, portal_position=None, robot_start_position=None):
         if obstacle_positions:
             self.obstacle_positions = obstacle_positions
         else:
@@ -15,6 +15,10 @@ class World:
             self.portal_position = portal_position
         else:
             self.portal_positions = (0, 0)
+        if robot_start_position:
+            self.robot_start_position = robot_start_position
+        else:
+            self.robot_start_position = (10, 5)
         self.portal = None
 
     def draw_obstacles(self):

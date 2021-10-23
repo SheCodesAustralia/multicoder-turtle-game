@@ -1,8 +1,8 @@
 # could flash turtle red when tries to move into an obstacle
+from tkinter.constants import CURRENT
 import turtle
 from Turtle import UserTurtle, RobotTurtle
 from worlds import WORLDS
-from utils import convert_coord_to_grid_pos
 
 
 class Game:
@@ -28,26 +28,29 @@ class Game:
     def clear_world(self):
         # clear the screen and redraw the turtle
         turtle.clearscreen()
-        game.myrtle = UserTurtle(
+        self.create_base_world()
+        self.myrtle = UserTurtle(
             'red',
             2,
-            self
-        )
-        game.myrtle.hideturtle()
-        start_position = convert_coord_to_grid_pos(
+            self,
             self.current_world.portal_position
         )
-        self.myrtle.goto(start_position)
-        game.myrtle.showturtle()
         self.myrtle.x_pos = self.current_world.portal_position[0]
         self.myrtle.y_pos = self.current_world.portal_position[1]
-        self.create_base_world()
+        self.flippy = RobotTurtle(
+            'purple',
+            self,
+            self.current_world.robot_start_position
+        )
+        self.flippy.x_pos = self.current_world.robot_start_position[0]
+        self.flippy.y_pos = self.current_world.robot_start_position[1]
 
     def find_next_world(self):
         self.clear_world()
         self.world += 1
         self.current_world = WORLDS[self.world]
         self.draw_world()
+        self.flippy.move()
 
 
 turtle.listen()
@@ -64,10 +67,8 @@ game.myrtle = UserTurtle(
 
 game.flippy = RobotTurtle(
     'purple',
-    2,
     game
 )
-
 game.flippy.move()
 
 turtle.mainloop()
