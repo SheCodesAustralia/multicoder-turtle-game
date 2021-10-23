@@ -12,6 +12,7 @@ class CustomTurtle(turtle.Turtle, MoveObject):
         self.shape('turtle')
         self.speed(speed)
         self.game = game
+        # self.has_key = False
 
 
 class UserTurtle(CustomTurtle):
@@ -22,7 +23,6 @@ class UserTurtle(CustomTurtle):
         turtle.onkey(self.move_backward, 'Down')
         turtle.onkey(self.turn_left, 'Left')
         turtle.onkey(self.turn_right, 'Right')
-
 
 class RobotTurtle(CustomTurtle):
     def __init__(self, colour, game, start_position=(10, 5)):

@@ -1,5 +1,3 @@
-# could flash turtle red when tries to move into an obstacle
-from tkinter.constants import CURRENT
 import turtle
 from Turtle import UserTurtle, RobotTurtle
 from worlds import WORLDS
@@ -24,6 +22,7 @@ class Game:
     def draw_world(self):
         self.current_world.draw_obstacles()
         self.current_world.draw_portal()
+        self.current_world.draw_key()
 
     def clear_world(self):
         # clear the screen and redraw the turtle
@@ -69,6 +68,6 @@ game.flippy = RobotTurtle(
     'purple',
     game
 )
-game.flippy.move()
+# game.flippy.move()
 
 turtle.mainloop()
