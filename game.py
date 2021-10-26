@@ -1,6 +1,7 @@
 import turtle
 from Turtle import UserTurtle, RobotTurtle
 from worlds import WORLDS
+from config import TREE, KEY, PORTAL, BIRD
 
 
 class Game:
@@ -13,8 +14,12 @@ class Game:
     def create_base_world(self):
         self.screen.setup(520, 520)
         self.screen.setworldcoordinates(0, 0, 500, 500)
-        self.screen.bgpic('grid-white.gif')
+        self.screen.bgpic('assets/grid-white.gif')
         self.screen.bgcolor('pink')
+        self.screen.addshape(TREE)
+        self.screen.addshape(KEY)
+        self.screen.addshape(PORTAL)
+        self.screen.addshape(BIRD)
 
         canvas = self.screen.getcanvas()
         canvas.itemconfig(self.screen._bgpic, anchor="sw")
@@ -37,7 +42,6 @@ class Game:
         self.myrtle.x_pos = self.current_world.portal_position[0]
         self.myrtle.y_pos = self.current_world.portal_position[1]
         self.flippy = RobotTurtle(
-            'purple',
             self,
             self.current_world.robot_start_position
         )
@@ -65,9 +69,8 @@ game.myrtle = UserTurtle(
 )
 
 game.flippy = RobotTurtle(
-    'purple',
     game
 )
-# game.flippy.move()
+game.flippy.move()
 
 turtle.mainloop()
