@@ -36,8 +36,8 @@ class Game:
     
     def create_user_turtle(self):
         self.myrtle = UserTurtle(
+            1,
             'red',
-            2,
             self,
             self.current_world.portal_position
         )
@@ -46,6 +46,8 @@ class Game:
     
     def create_robot_turlte(self):
         self.flippy = RobotTurtle(
+            10,
+            'grey',
             self,
             self.current_world.robot_start_position
         )
@@ -56,14 +58,15 @@ class Game:
         self.clear_world()
         self.create_user_turtle()
         self.world += 1
-        if (self.world == 1):
-            self.game_end()
-        else:
-            self.current_world = WORLDS[self.world]
-            self.create_robot_turlte()
-            self.draw_world()
-            self.flippy.move()
+        # if (self.world == 1):
+        #     self.game_end()
+        # else:
+        self.current_world = WORLDS[self.world]
+        self.create_robot_turlte()
+        self.draw_world()
+        self.flippy.move()
 
+    # TODO
     def game_end(self):
         turtle.clearscreen()
         self.screen.setup(520, 520)
@@ -76,21 +79,38 @@ turtle.listen()
 
 game = Game()
 game.create_base_world()
-game.game_end()
-# game.create_base_world()
-# game.draw_world()
+# game.game_end()
+game.draw_world()
 
-# game.myrtle = UserTurtle(
-#     'red',
-#     2,
-#     game,
-#     (0, 0)
-# )
+game.myrtle = UserTurtle(
+    'red',
+    1,
+    game,
+    (0, 0)
+)
 
-# game.flippy = RobotTurtle(
-#     game,
-#     game.current_world.robot_start_position
-# )
+game.flippy = RobotTurtle(
+    'grey',
+    1,
+    game,
+    game.current_world.robot_start_position
+)
 # game.flippy.move()
 
-turtle.mainloop()
+game.pecky = RobotTurtle(
+    'red',
+    3,
+    game,
+    (5, 5)
+)
+
+while True:
+    game.pecky.move()
+    game.flippy.move()
+# game.screen.ontimer(game.pecky.move(), 10)
+# game.screen.ontimer(game.flippy.move(), 10)
+# turtle.ontimer(game.flippy.move(), 10)
+# turtle.ontimer(game.pecky.move(), 10)
+# game.pecky.move()
+
+# turtle.mainloop()

@@ -45,3 +45,8 @@ class World:
         if cell == self.key_position:
             return True
         return False
+
+    def cell_is_empty(self, cell):
+        return not self.cell_contains_portal(cell) and \
+            not self.cell_contains_key(cell) and \
+                not self.cell_contains_obstacle(cell)
