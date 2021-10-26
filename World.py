@@ -22,7 +22,7 @@ class World:
     def draw_portal(self):
         portal_grid_position = convert_coord_to_grid_pos(self.portal_position)
         Portal('blue', 'circle', portal_grid_position)
-    
+
     def draw_key(self):
         key_grid_position = convert_coord_to_grid_pos(self.key_position)
         self.key = Key('orange', 'circle', key_grid_position)

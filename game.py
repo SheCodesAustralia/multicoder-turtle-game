@@ -15,7 +15,7 @@ class Game:
         self.screen.setup(520, 520)
         self.screen.setworldcoordinates(0, 0, 500, 500)
         self.screen.bgpic('assets/grid-white.gif')
-        self.screen.bgcolor('pink')
+        self.screen.bgcolor('black')
         self.screen.addshape(TREE)
         self.screen.addshape(KEY)
         self.screen.addshape(PORTAL)
@@ -33,6 +33,8 @@ class Game:
         # clear the screen and redraw the turtle
         turtle.clearscreen()
         self.create_base_world()
+    
+    def create_user_turtle(self):
         self.myrtle = UserTurtle(
             'red',
             2,
@@ -41,6 +43,8 @@ class Game:
         )
         self.myrtle.x_pos = self.current_world.portal_position[0]
         self.myrtle.y_pos = self.current_world.portal_position[1]
+    
+    def create_robot_turlte(self):
         self.flippy = RobotTurtle(
             self,
             self.current_world.robot_start_position
@@ -50,8 +54,10 @@ class Game:
 
     def find_next_world(self):
         self.clear_world()
+        self.create_user_turtle()
         self.world += 1
         self.current_world = WORLDS[self.world]
+        self.create_robot_turlte()
         self.draw_world()
         self.flippy.move()
 
@@ -65,11 +71,13 @@ game.draw_world()
 game.myrtle = UserTurtle(
     'red',
     2,
-    game
+    game,
+    (0, 0)
 )
 
 game.flippy = RobotTurtle(
-    game
+    game,
+    game.current_world.robot_start_position
 )
 game.flippy.move()
 
