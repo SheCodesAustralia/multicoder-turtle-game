@@ -1,7 +1,7 @@
 import turtle
 from Turtle import UserTurtle, RobotTurtle
 from worlds import WORLDS
-from config import TREE, KEY, PORTAL, BIRD
+from config import TREE, KEY, PORTAL, BIRD, OCEAN
 
 
 class Game:
@@ -56,29 +56,41 @@ class Game:
         self.clear_world()
         self.create_user_turtle()
         self.world += 1
-        self.current_world = WORLDS[self.world]
-        self.create_robot_turlte()
-        self.draw_world()
-        self.flippy.move()
+        if (self.world == 1):
+            self.game_end()
+        else:
+            self.current_world = WORLDS[self.world]
+            self.create_robot_turlte()
+            self.draw_world()
+            self.flippy.move()
+
+    def game_end(self):
+        turtle.clearscreen()
+        self.screen.setup(520, 520)
+        self.screen.setworldcoordinates(0, 0, 500, 500)
+        self.screen.bgpic(OCEAN)
+
 
 
 turtle.listen()
 
 game = Game()
 game.create_base_world()
-game.draw_world()
+game.game_end()
+# game.create_base_world()
+# game.draw_world()
 
-game.myrtle = UserTurtle(
-    'red',
-    2,
-    game,
-    (0, 0)
-)
+# game.myrtle = UserTurtle(
+#     'red',
+#     2,
+#     game,
+#     (0, 0)
+# )
 
-game.flippy = RobotTurtle(
-    game,
-    game.current_world.robot_start_position
-)
-game.flippy.move()
+# game.flippy = RobotTurtle(
+#     game,
+#     game.current_world.robot_start_position
+# )
+# game.flippy.move()
 
 turtle.mainloop()
