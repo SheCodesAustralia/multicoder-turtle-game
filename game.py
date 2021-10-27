@@ -42,8 +42,7 @@ class Game:
             self,
             self.current_world.portal_position
         )
-        myrtle.x_pos = self.current_world.portal_position[0]
-        myrtle.y_pos = self.current_world.portal_position[1]
+        myrtle.position = self.current_world.portal_position
         self.birds.append(myrtle)
 
     def create_robot_turtle(self):
@@ -53,8 +52,7 @@ class Game:
             self,
             self.current_world.robot_start_position
         )
-        flippy.x_pos = self.current_world.robot_start_position[0]
-        flippy.y_pos = self.current_world.robot_start_position[1]
+        flippy.position = self.current_world.robot_start_position
         self.birds.append(flippy)
 
     def find_next_world(self):
@@ -70,8 +68,8 @@ class Game:
             for bird in self.birds:
                 bird.move()
 
-    # TODO
     def game_end(self):
+        print('here')
         turtle.clearscreen()
         self.screen.setup(520, 520)
         self.screen.setworldcoordinates(0, 0, 500, 500)
