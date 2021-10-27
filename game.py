@@ -1,7 +1,7 @@
 import turtle
 from Turtle import UserTurtle, RobotTurtle
 from worlds import WORLDS
-from config import TREE, KEY, PORTAL, BIRD, OCEAN
+from config import ROCK, BIRD, OCEAN, GRID, UMBRELLA, FOOD
 
 
 class Game:
@@ -10,16 +10,17 @@ class Game:
         self.world = 0
         self.current_world = WORLDS[self.world]
         self.screen = turtle.Screen()
+        self.birds = []
 
     def create_base_world(self):
         self.screen.setup(520, 520)
         self.screen.setworldcoordinates(0, 0, 500, 500)
-        self.screen.bgpic('assets/grid-white.gif')
+        self.screen.bgpic(GRID)
         self.screen.bgcolor('black')
-        self.screen.addshape(TREE)
-        self.screen.addshape(KEY)
-        self.screen.addshape(PORTAL)
+        self.screen.addshape(ROCK)
         self.screen.addshape(BIRD)
+        self.screen.addshape(UMBRELLA)
+        self.screen.addshape(FOOD)
 
         canvas = self.screen.getcanvas()
         canvas.itemconfig(self.screen._bgpic, anchor="sw")
@@ -30,41 +31,44 @@ class Game:
         self.current_world.draw_key()
 
     def clear_world(self):
-        # clear the screen and redraw the turtle
         turtle.clearscreen()
+        self.birds = []
         self.create_base_world()
-    
+
     def create_user_turtle(self):
-        self.myrtle = UserTurtle(
+        myrtle = UserTurtle(
             1,
             'red',
             self,
             self.current_world.portal_position
         )
-        self.myrtle.x_pos = self.current_world.portal_position[0]
-        self.myrtle.y_pos = self.current_world.portal_position[1]
-    
-    def create_robot_turlte(self):
-        self.flippy = RobotTurtle(
+        myrtle.x_pos = self.current_world.portal_position[0]
+        myrtle.y_pos = self.current_world.portal_position[1]
+        self.birds.append(myrtle)
+
+    def create_robot_turtle(self):
+        flippy = RobotTurtle(
             10,
             'grey',
             self,
             self.current_world.robot_start_position
         )
-        self.flippy.x_pos = self.current_world.robot_start_position[0]
-        self.flippy.y_pos = self.current_world.robot_start_position[1]
+        flippy.x_pos = self.current_world.robot_start_position[0]
+        flippy.y_pos = self.current_world.robot_start_position[1]
+        self.birds.append(flippy)
 
     def find_next_world(self):
         self.clear_world()
         self.create_user_turtle()
         self.world += 1
-        # if (self.world == 1):
-        #     self.game_end()
-        # else:
-        self.current_world = WORLDS[self.world]
-        self.create_robot_turlte()
-        self.draw_world()
-        self.flippy.move()
+        if (self.world == 1):
+            self.game_end()
+        else:
+            self.current_world = WORLDS[self.world]
+            self.create_robot_turtle()
+            self.draw_world()
+            for bird in self.birds:
+                bird.move()
 
     # TODO
     def game_end(self):
@@ -73,6 +77,18 @@ class Game:
         self.screen.setworldcoordinates(0, 0, 500, 500)
         self.screen.bgpic(OCEAN)
 
+        canvas = self.screen.getcanvas()
+        canvas.itemconfig(self.screen._bgpic, anchor="sw")
+
+        myrtle = RobotTurtle(
+            '#402e08',
+            'turtle',
+            1,
+            game,
+            (5, 5)
+        )
+        while True:
+            myrtle.move()
 
 
 turtle.listen()
@@ -83,34 +99,25 @@ game.create_base_world()
 game.draw_world()
 
 game.myrtle = UserTurtle(
-    'red',
-    1,
+    '#402e08',
+    3,
     game,
     (0, 0)
 )
 
-game.flippy = RobotTurtle(
-    'grey',
-    1,
-    game,
-    game.current_world.robot_start_position
-)
-# game.flippy.move()
-
-game.pecky = RobotTurtle(
-    'red',
-    3,
-    game,
-    (5, 5)
-)
+for i in range(2):
+    bird = RobotTurtle(
+        '#595957',
+        'classic',
+        3,
+        game,
+        (5, 5)
+    )
+    game.birds.append(bird)
 
 while True:
-    game.pecky.move()
-    game.flippy.move()
-# game.screen.ontimer(game.pecky.move(), 10)
-# game.screen.ontimer(game.flippy.move(), 10)
-# turtle.ontimer(game.flippy.move(), 10)
-# turtle.ontimer(game.pecky.move(), 10)
-# game.pecky.move()
+    for bird in game.birds:
+        bird.move()
+
 
 # turtle.mainloop()

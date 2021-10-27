@@ -26,9 +26,11 @@ class UserTurtle(CustomTurtle):
 
 
 class RobotTurtle(CustomTurtle):
-    def __init__(self, colour, speed, game, start_position):
+    def __init__(self, colour, shape, speed, game, start_position):
         super().__init__(colour, speed, game, False, start_position)
         self.game = game
+        self.shape(shape)
+        self.shapesize(2, 2)
 
     def move(self):
         turning_angles = self.get_possible_positions()

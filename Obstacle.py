@@ -1,13 +1,12 @@
 import turtle
-from config import STEP_SIZE, STAMP_SIZE, TREE
+from config import STEP_SIZE, STAMP_SIZE, ROCK
 
 
 class Obstacle(turtle.Turtle):
 
-    def __init__(self, colour, shape, position):
+    def __init__(self, position):
         super().__init__()
-        self.color(colour)
-        self.shape(TREE)
+        self.shape(ROCK)
         self.speed(10)
         self.penup()
         self.shapesize(STEP_SIZE/STAMP_SIZE, STEP_SIZE/STAMP_SIZE, STEP_SIZE/STAMP_SIZE)

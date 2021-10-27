@@ -10,14 +10,12 @@ class MoveObject:
         self.y_pos = start_position[1]
         self.allowed_through_portal = allowed_through_portal
         self.goto_start_position(start_position)
-    
+
     def get_possible_positions(self):
-        # self.move_forward()
-        # direction = self.heading()
         up_position = (self.x_pos, self.y_pos + 1)
         right_position = (self.x_pos + 1, self.y_pos)
         left_position = (self.x_pos - 1, self.y_pos)
-        
+
         valid_directions = []
         if self.game.current_world.cell_is_empty(up_position):
             valid_directions.append(0)
@@ -59,6 +57,16 @@ class MoveObject:
                 self.y_pos = new_pos[1]
                 self.forward(STEP_SIZE)
                 self.pickup_key()
+
+            if self.is_collision():
+                self.goto_start_position((0, 0))  # TODO work out coordinates
+
+    def is_collision(self):
+        for bird in self.game.birds:
+            if self.x_pos == bird.x_pos and \
+                self.y_pos == bird.y_pos:
+                return True
+        return False
 
     def move_backward(self):  # challenge for them to add themselves?
         # figure out new position
@@ -105,6 +113,8 @@ class MoveObject:
     def goto_start_position(self, coordinates):
         self.penup()
         start_position = convert_coord_to_grid_pos(coordinates)
+        self.x_pos = coordinates[0]
+        self.y_pos = coordinates[1]
         self.goto(start_position[0], start_position[1])
 
     def pickup_key(self):

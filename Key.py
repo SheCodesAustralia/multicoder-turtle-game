@@ -1,13 +1,12 @@
 import turtle
-from config import STEP_SIZE, STAMP_SIZE, KEY
+from config import STEP_SIZE, STAMP_SIZE, FOOD
 
 
 class Key(turtle.Turtle):
 
-    def __init__(self, colour, shape, position):
+    def __init__(self, position):
         super().__init__()
-        self.color(colour)
-        self.shape(KEY)
+        self.shape(FOOD)
         self.speed(10)
         self.penup()
         self.goto(position)

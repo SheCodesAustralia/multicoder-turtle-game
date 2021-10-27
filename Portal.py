@@ -1,13 +1,12 @@
 import turtle
-from config import STEP_SIZE, STAMP_SIZE, PORTAL
+from config import STEP_SIZE, STAMP_SIZE, UMBRELLA
 
 
 class Portal(turtle.Turtle):
 
-    def __init__(self, colour, shape, position):
+    def __init__(self, position):
         super().__init__()
-        self.color(colour)
-        self.shape(PORTAL)
+        self.shape(UMBRELLA)
         self.penup()
         self.goto(position)
         self.shapesize(STEP_SIZE/STAMP_SIZE)
