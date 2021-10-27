@@ -105,9 +105,11 @@ class MoveObject:
 
     def goto_start_position(self, coordinates):
         self.penup()
+        self.hideturtle()
         start_position = convert_coord_to_grid_pos(coordinates)
         self.position = coordinates
         self.goto(start_position)
+        self.showturtle()
 
     def pickup_key(self):
         self.game.current_world.key.hideturtle()

@@ -36,19 +36,19 @@ class Game:
         self.create_base_world()
 
     def create_user_turtle(self):
-        myrtle = UserTurtle(
-            1,
+        self.myrtle = UserTurtle(
             'red',
+            1,
             self,
             self.current_world.portal_position
         )
-        myrtle.position = self.current_world.portal_position
-        self.birds.append(myrtle)
+        self.myrtle.position = self.current_world.portal_position
 
     def create_robot_turtle(self):
         flippy = RobotTurtle(
-            10,
             'grey',
+            'classic',
+            3,
             self,
             self.current_world.robot_start_position
         )
@@ -57,11 +57,11 @@ class Game:
 
     def find_next_world(self):
         self.clear_world()
-        self.create_user_turtle()
-        self.world += 1
         if (self.world == 1):
             self.game_end()
         else:
+            self.create_user_turtle()
+            self.world += 1
             self.current_world = WORLDS[self.world]
             self.create_robot_turtle()
             self.draw_world()
@@ -69,7 +69,6 @@ class Game:
                 bird.move()
 
     def game_end(self):
-        print('here')
         turtle.clearscreen()
         self.screen.setup(520, 520)
         self.screen.setworldcoordinates(0, 0, 500, 500)
@@ -78,22 +77,21 @@ class Game:
         canvas = self.screen.getcanvas()
         canvas.itemconfig(self.screen._bgpic, anchor="sw")
 
-        myrtle = RobotTurtle(
+        self.myrtle = RobotTurtle(
             '#402e08',
             'turtle',
             1,
-            game,
-            (5, 5)
+            self,
+            self.current_world.portal_position
         )
         while True:
-            myrtle.move()
+            self.myrtle.move()
 
 
 turtle.listen()
 
 game = Game()
 game.create_base_world()
-# game.game_end()
 game.draw_world()
 
 game.myrtle = UserTurtle(
