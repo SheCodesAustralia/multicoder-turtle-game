@@ -5,20 +5,19 @@ import random
 
 class CustomTurtle(turtle.Turtle, MoveObject):
 
-    def __init__(self, colour, speed, game, allowed_through_portal, start_position):
+    def __init__(self, colour, shape, speed, game, allowed_through_portal, start_position):
         super(CustomTurtle, self).__init__()
         MoveObject.__init__(self, game, allowed_through_portal, start_position)
         self.color(colour)
+        self.shape(shape)
         self.speed(speed)
         self.game = game
-        self.has_key = False
 
 
 class UserTurtle(CustomTurtle):
 
-    def __init__(self, colour, speed, game, start_position):
-        super().__init__(colour, speed, game, True, start_position)
-        self.shape('turtle')
+    def __init__(self, colour, shape, speed, game, start_position):
+        super().__init__(colour, shape, speed, game, True, start_position)
         turtle.onkey(self.move_forward, 'Up')
         turtle.onkey(self.move_backward, 'Down')
         turtle.onkey(self.turn_left, 'Left')
@@ -27,9 +26,7 @@ class UserTurtle(CustomTurtle):
 
 class RobotTurtle(CustomTurtle):
     def __init__(self, colour, shape, speed, game, start_position):
-        super().__init__(colour, speed, game, False, start_position)
-        self.game = game
-        self.shape(shape)
+        super().__init__(colour, shape, speed, game, False, start_position)
         self.shapesize(2, 2)
 
     def move(self):

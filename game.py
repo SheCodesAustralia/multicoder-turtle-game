@@ -1,5 +1,5 @@
 import turtle
-from Turtle import UserTurtle, RobotTurtle
+from Turtles import UserTurtle, RobotTurtle
 from worlds import WORLDS
 from config import ROCK, BIRD, OCEAN, GRID, UMBRELLA, FOOD
 
@@ -28,45 +28,47 @@ class Game:
     def draw_world(self):
         self.current_world.draw_obstacles()
         self.current_world.draw_portal()
-        self.current_world.draw_key()
+        self.current_world.draw_food()
 
     def clear_world(self):
         turtle.clearscreen()
         self.birds = []
         self.create_base_world()
 
-    def create_user_turtle(self):
+    def create_user_turtle(self, start_position):
         self.myrtle = UserTurtle(
-            'red',
-            1,
-            self,
-            self.current_world.portal_position
+            colour='#402e08',
+            shape='turtle',
+            speed=2,
+            game=self,
+            start_position=start_position
         )
-        self.myrtle.position = self.current_world.portal_position
 
     def create_robot_turtle(self):
-        flippy = RobotTurtle(
-            'grey',
-            'classic',
-            3,
-            self,
-            self.current_world.robot_start_position
+        bird = RobotTurtle(
+            colour='#870900',
+            shape='classic',
+            speed=3,
+            game=self,
+            start_position=self.current_world.robot_start_position
         )
-        flippy.position = self.current_world.robot_start_position
-        self.birds.append(flippy)
+        bird.position = self.current_world.robot_start_position
+        self.birds.append(bird)
 
     def find_next_world(self):
         self.clear_world()
-        if (self.world == 1):
+        if (self.world == 2):
             self.game_end()
         else:
-            self.create_user_turtle()
+            user_turtle_start_position = self.current_world.portal_position
             self.world += 1
             self.current_world = WORLDS[self.world]
-            self.create_robot_turtle()
             self.draw_world()
+            for count in range(self.world+1):
+                self.create_robot_turtle()
             for bird in self.birds:
                 bird.move()
+            self.create_user_turtle(user_turtle_start_position)
 
     def game_end(self):
         turtle.clearscreen()
@@ -78,11 +80,11 @@ class Game:
         canvas.itemconfig(self.screen._bgpic, anchor="sw")
 
         self.myrtle = RobotTurtle(
-            '#402e08',
-            'turtle',
-            1,
-            self,
-            self.current_world.portal_position
+            colour='#402e08',
+            shape='turtle',
+            speed=1,
+            game=self,
+            start_position=self.current_world.portal_position
         )
         while True:
             self.myrtle.move()
@@ -94,26 +96,14 @@ game = Game()
 game.create_base_world()
 game.draw_world()
 
-game.myrtle = UserTurtle(
-    '#402e08',
-    3,
-    game,
-    (0, 0)
-)
+game.create_user_turtle((0, 0))
 
-for i in range(2):
-    bird = RobotTurtle(
-        '#595957',
-        'classic',
-        3,
-        game,
-        (5, 5)
-    )
-    game.birds.append(bird)
+for i in range(4):
+    game.create_robot_turtle()
 
 while True:
     for bird in game.birds:
         bird.move()
 
 
-# turtle.mainloop()
+turtle.mainloop()

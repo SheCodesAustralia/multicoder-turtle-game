@@ -6,15 +6,16 @@ class MoveObject:
 
     def __init__(self, game, allowed_through_portal, start_position):
         self.game = game
-        self.position = start_position
+        self.start_position = start_position
+        self.current_position = start_position
         self.allowed_through_portal = allowed_through_portal
-        self.goto_start_position(start_position)
+        self.goto_start_position()
 
     def get_possible_positions(self):
 
-        up_position = (self.position[0], self.position[1] + 1)
-        right_position = (self.position[0] + 1, self.position[1])
-        left_position = (self.position[0] - 1, self.position[1])
+        up_position = (self.current_position[0], self.current_position[1] + 1)
+        right_position = (self.current_position[0] + 1, self.current_position[1])
+        left_position = (self.current_position[0] - 1, self.current_position[1])
 
         valid_directions = []
         if self.game.current_world.cell_is_empty(up_position):
@@ -29,38 +30,37 @@ class MoveObject:
         # figure out new position
         direction = self.heading()
         if direction == 90.0:  # facing up
-            new_pos = (self.position[0], self.position[1] + 1)
+            new_pos = (self.current_position[0], self.current_position[1] + 1)
         if direction == 0.0:  # facing right
-            new_pos = (self.position[0] + 1, self.position[1])
+            new_pos = (self.current_position[0] + 1, self.current_position[1])
         if direction == 270.0:  # facing down
-            new_pos = (self.position[0], self.position[1] - 1)
+            new_pos = (self.current_position[0], self.current_position[1] - 1)
         if direction == 180.0:  # facing left
-            new_pos = (self.position[0] - 1, self.position[1])
+            new_pos = (self.current_position[0] - 1, self.current_position[1])
 
         # check there is no obstacle there
         if not self.game.current_world.cell_contains_obstacle(new_pos):
             if not self.game.current_world.cell_contains_portal(new_pos) and \
-                not self.game.current_world.cell_contains_key(new_pos):
-                self.position = new_pos
+                not self.game.current_world.cell_contains_food(new_pos):
+                self.current_position = new_pos
                 self.forward(STEP_SIZE)
 
         if self.allowed_through_portal:
-            if self.game.current_world.cell_contains_portal(new_pos) and \
-                self.game.myrtle.has_key:
-                self.position = new_pos
+            if self.game.current_world.cell_contains_portal(new_pos):
+                self.current_position = new_pos
                 self.forward(STEP_SIZE)
                 self.enter_portal()
-            if self.game.current_world.cell_contains_key(new_pos):
-                self.position = new_pos
+            if self.game.current_world.cell_contains_food(new_pos):
+                self.current_position = new_pos
                 self.forward(STEP_SIZE)
-                self.pickup_key()
+                self.eat_food()
 
             if self.is_collision():
-                self.goto_start_position((0, 0))  # TODO work out coordinates
+                self.goto_start_position()
 
     def is_collision(self):
         for bird in self.game.birds:
-            if self.position == bird.position:
+            if self.current_position == bird.position:
                 return True
         return False
 
@@ -68,31 +68,30 @@ class MoveObject:
         # figure out new position
         direction = self.heading()
         if direction == 90.0:  # facing up
-            new_pos = (self.position[0], self.position[1] - 1)
+            new_pos = (self.current_position[0], self.current_position[1] - 1)
         if direction == 0.0:  # facing right
-            new_pos = (self.position[0] - 1, self.position[1])
+            new_pos = (self.current_position[0] - 1, self.current_position[1])
         if direction == 270.0:  # facing down
-            new_pos = (self.position[0], self.position[1] + 1)
+            new_pos = (self.current_position[0], self.current_position[1] + 1)
         if direction == 180.0:  # facing left
-            new_pos = (self.position[0] + 1, self.position[1])
+            new_pos = (self.current_position[0] + 1, self.current_position[1])
 
         # check there is no obstacle there
         if not self.game.current_world.cell_contains_obstacle(new_pos):
             if not self.game.current_world.cell_contains_portal(new_pos) and \
-                not self.game.current_world.cell_contains_key(new_pos):
-                self.position = new_pos
+                not self.game.current_world.cell_contains_food(new_pos):
+                self.current_position = new_pos
                 self.backward(STEP_SIZE)
 
         if self.allowed_through_portal:
-            if self.game.current_world.cell_contains_portal(new_pos) and \
-                self.game.myrtle.has_key:
-                self.position = new_pos
+            if self.game.current_world.cell_contains_portal(new_pos):
+                self.current_position = new_pos
                 self.backward(STEP_SIZE)
-                self.enter_portal()    
-            if self.game.current_world.cell_contains_key(new_pos):
-                self.position = new_pos
+                self.enter_portal()
+            if self.game.current_world.cell_contains_food(new_pos):
+                self.current_position = new_pos
                 self.backward(STEP_SIZE)
-                self.pickup_key()
+                self.eat_food()
 
     def turn_right(self):
         self.right(90)
@@ -103,15 +102,13 @@ class MoveObject:
     def enter_portal(self):
         self.game.find_next_world()
 
-    def goto_start_position(self, coordinates):
+    def goto_start_position(self):
         self.penup()
         self.hideturtle()
-        start_position = convert_coord_to_grid_pos(coordinates)
-        self.position = coordinates
+        self.current_position = self.start_position
+        start_position = convert_coord_to_grid_pos(self.start_position)
         self.goto(start_position)
         self.showturtle()
 
-    def pickup_key(self):
-        self.game.current_world.key.hideturtle()
-        self.game.myrtle.color('orange')
-        self.game.myrtle.has_key = True
+    def eat_food(self):
+        self.game.current_world.food.hideturtle()
