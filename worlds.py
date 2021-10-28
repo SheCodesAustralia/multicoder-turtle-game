@@ -41,7 +41,7 @@ WORLDS = [
             (10, 0), (10, 7)
         ],
         portal_position=(3, 1),
-        robot_start_position=(7, 7),
+        robot_start_position=(7, 8),
         food_position=(9, 4)
     )
 ]

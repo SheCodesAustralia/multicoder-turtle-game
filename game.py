@@ -46,7 +46,7 @@ class Game:
 
     def create_robot_turtle(self):
         bird = RobotTurtle(
-            colour='#870900',
+            colour='#000000',
             shape='classic',
             speed=3,
             game=self,
@@ -98,8 +98,7 @@ game.draw_world()
 
 game.create_user_turtle((0, 0))
 
-for i in range(4):
-    game.create_robot_turtle()
+game.create_robot_turtle()
 
 while True:
     for bird in game.birds:

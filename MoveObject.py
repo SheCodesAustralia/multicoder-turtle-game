@@ -16,6 +16,7 @@ class MoveObject:
         up_position = (self.current_position[0], self.current_position[1] + 1)
         right_position = (self.current_position[0] + 1, self.current_position[1])
         left_position = (self.current_position[0] - 1, self.current_position[1])
+        down_position = (self.current_position[0], self.current_position[1] - 1)
 
         valid_directions = []
         if self.game.current_world.cell_is_empty(up_position):
@@ -24,6 +25,8 @@ class MoveObject:
             valid_directions.append(90)
         if self.game.current_world.cell_is_empty(left_position):
             valid_directions.append(270)
+        if self.game.current_world.cell_is_empty(down_position):
+            valid_directions.append(180)
         return valid_directions
 
     def move_forward(self):
@@ -60,7 +63,7 @@ class MoveObject:
 
     def is_collision(self):
         for bird in self.game.birds:
-            if self.current_position == bird.position:
+            if self.current_position == bird.current_position:
                 return True
         return False
 
