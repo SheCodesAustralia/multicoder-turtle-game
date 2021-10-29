@@ -59,6 +59,8 @@ class MoveObject:
                 self.eat_food()
 
             if self.is_collision():
+                self.game.score = self.game.score - 5
+                self.game.update_score()
                 self.goto_start_position()
 
     def is_collision(self):
@@ -114,4 +116,6 @@ class MoveObject:
         self.showturtle()
 
     def eat_food(self):
+        self.game.score = self.game.score + 5
+        self.game.update_score()
         self.game.current_world.food.hideturtle()

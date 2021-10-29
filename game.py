@@ -11,6 +11,8 @@ class Game:
         self.current_world = WORLDS[self.world]
         self.screen = turtle.Screen()
         self.birds = []
+        self.score = 0
+        self.score_display = turtle.Turtle()
 
     def create_base_world(self):
         self.screen.setup(520, 520)
@@ -24,11 +26,16 @@ class Game:
 
         canvas = self.screen.getcanvas()
         canvas.itemconfig(self.screen._bgpic, anchor="sw")
+        self.update_score()
 
     def draw_world(self):
         self.current_world.draw_obstacles()
         self.current_world.draw_portal()
         self.current_world.draw_food()
+    
+    def update_score(self):
+        self.score_display.clear()
+        self.score_display.write(f'Score: {self.score}', font=("Arial", 16, "normal"))
 
     def clear_world(self):
         turtle.clearscreen()
@@ -61,7 +68,9 @@ class Game:
             self.game_end()
         else:
             user_turtle_start_position = self.current_world.portal_position
-            self.world += 1
+            self.score = self.score + 10
+            self.update_score()
+            self.world = self.world + 1
             self.current_world = WORLDS[self.world]
             self.draw_world()
             for count in range(self.world+1):
