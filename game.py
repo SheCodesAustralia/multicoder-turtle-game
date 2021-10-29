@@ -88,6 +88,8 @@ class Game:
         canvas = self.screen.getcanvas()
         canvas.itemconfig(self.screen._bgpic, anchor="sw")
 
+        self.update_score()
+
         self.myrtle = RobotTurtle(
             colour='#402e08',
             shape='turtle',

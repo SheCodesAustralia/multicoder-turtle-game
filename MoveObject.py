@@ -58,14 +58,14 @@ class MoveObject:
                 self.forward(STEP_SIZE)
                 self.eat_food()
 
-            if self.is_collision():
-                self.game.score = self.game.score - 5
-                self.game.update_score()
-                self.goto_start_position()
+        if self.is_collision():
+            self.game.score = self.game.score - 5
+            self.game.update_score()
+            self.game.myrtle.goto_start_position()
 
     def is_collision(self):
         for bird in self.game.birds:
-            if self.current_position == bird.current_position:
+            if self.game.myrtle.current_position == bird.current_position:
                 return True
         return False
 
@@ -97,6 +97,11 @@ class MoveObject:
                 self.current_position = new_pos
                 self.backward(STEP_SIZE)
                 self.eat_food()
+
+        if self.is_collision():
+            self.game.score = self.game.score - 5
+            self.game.update_score()
+            self.game.myrtle.goto_start_position()
 
     def turn_right(self):
         self.right(90)
