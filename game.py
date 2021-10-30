@@ -1,7 +1,7 @@
 import turtle
 from Turtles import UserTurtle, RobotTurtle
 from worlds import WORLDS
-from config import ROCK, BIRD, OCEAN, GRID, UMBRELLA, FOOD
+from config import ROCK, BIRD, OCEAN, GRID, PORTAL, FOOD
 
 
 class Game:
@@ -21,7 +21,7 @@ class Game:
         self.screen.bgcolor('black')
         self.screen.addshape(ROCK)
         self.screen.addshape(BIRD)
-        self.screen.addshape(UMBRELLA)
+        self.screen.addshape(PORTAL)
         self.screen.addshape(FOOD)
 
         canvas = self.screen.getcanvas()

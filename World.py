@@ -1,7 +1,7 @@
 from utils import convert_coord_to_grid_pos
 from Portal import Portal
 from Obstacle import Obstacle
-from config import NUM_GRID_ROWS, FOOD, ROCK, UMBRELLA
+from config import NUM_GRID_ROWS, FOOD, ROCK, PORTAL
 
 
 class World:
@@ -20,7 +20,7 @@ class World:
 
     def draw_portal(self):
         portal_grid_position = convert_coord_to_grid_pos(self.portal_position)
-        Obstacle(UMBRELLA, portal_grid_position)
+        Obstacle(PORTAL, portal_grid_position)
 
     def draw_food(self):
         food_grid_position = convert_coord_to_grid_pos(self.food_position)
