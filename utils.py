@@ -2,7 +2,8 @@ from config import STEP_SIZE
 
 
 def convert_coord_to_grid_pos(coordinates):
-    x, y = coordinates
+    x = coordinates[0]
+    y = coordinates[1]
     if x == 0:
         x = STEP_SIZE * 0.5
     else:

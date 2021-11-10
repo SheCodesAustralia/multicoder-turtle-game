@@ -1,5 +1,5 @@
 import turtle
-from Turtles import UserTurtle, RobotTurtle
+from Characters import UserTurtle, RobotBird
 from worlds import WORLDS
 from config import ROCK, BIRD, OCEAN, GRID, PORTAL, FOOD
 
@@ -51,22 +51,21 @@ class Game:
             start_position=start_position
         )
 
-    def create_robot_turtle(self):
-        bird = RobotTurtle(
+    def create_robot_bird(self):
+        bird = RobotBird(
             colour='#000000',
             shape='classic',
             speed=3,
             game=self,
-            start_position=self.current_world.robot_start_position
+            start_position=self.current_world.bird_start_position
         )
-        bird.position = self.current_world.robot_start_position
         self.birds.append(bird)
 
     def find_next_world(self):
-        self.clear_world()
-        if (self.world == 2):
+        if (self.world == len(WORLDS) - 1):
             self.game_end()
         else:
+            self.clear_world()
             user_turtle_start_position = self.current_world.portal_position
             self.score = self.score + 10
             self.update_score()
@@ -74,7 +73,7 @@ class Game:
             self.current_world = WORLDS[self.world]
             self.draw_world()
             for count in range(self.world+1):
-                self.create_robot_turtle()
+                self.create_robot_bird()
             for bird in self.birds:
                 bird.move()
             self.create_user_turtle(user_turtle_start_position)
@@ -90,7 +89,8 @@ class Game:
 
         self.update_score()
 
-        self.myrtle = RobotTurtle(
+        self.current_world.obstacle_positions = []
+        self.myrtle = RobotBird(
             colour='#402e08',
             shape='turtle',
             speed=1,
@@ -109,7 +109,7 @@ game.draw_world()
 
 game.create_user_turtle((0, 0))
 
-game.create_robot_turtle()
+game.create_robot_bird()
 
 while True:
     for bird in game.birds:

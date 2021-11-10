@@ -1,15 +1,14 @@
 from utils import convert_coord_to_grid_pos
-from Portal import Portal
 from Obstacle import Obstacle
 from config import NUM_GRID_ROWS, FOOD, ROCK, PORTAL
 
 
 class World:
 
-    def __init__(self, obstacle_positions, portal_position, robot_start_position, food_position):
+    def __init__(self, obstacle_positions, portal_position, bird_start_position, food_position):
         self.obstacle_positions = obstacle_positions
         self.portal_position = portal_position
-        self.robot_start_position = robot_start_position
+        self.bird_start_position = bird_start_position
         self.food_position = food_position
         self.food = None
 

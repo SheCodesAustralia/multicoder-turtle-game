@@ -24,7 +24,7 @@ class UserTurtle(CustomTurtle):
         turtle.onkey(self.turn_right, 'Right')
 
 
-class RobotTurtle(CustomTurtle):
+class RobotBird(CustomTurtle):
     def __init__(self, colour, shape, speed, game, start_position):
         super().__init__(colour, shape, speed, game, False, start_position)
         self.shapesize(2, 2)

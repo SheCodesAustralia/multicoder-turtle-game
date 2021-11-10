@@ -6,7 +6,7 @@ WORLDS = [
     #         (0, 7), (1, 7), (2, 1), (2, 2), (3, 2), (3, 6), (4, 6)
     #     ],
     #     portal_position=(0, 2),
-    #     robot_start_position=(10, 10),
+    #     bird_start_position=(10, 10),
     #     food_position=(0, 1)
     # ),
     World(
@@ -17,7 +17,7 @@ WORLDS = [
             (8, 6), (9, 0), (9, 1), (9, 4), (9, 6), (10, 6)
         ],
         portal_position=(10, 0),
-        robot_start_position=(10, 10),
+        bird_start_position=(10, 10),
         food_position=(1, 10)
     ),
     World(
@@ -29,7 +29,7 @@ WORLDS = [
             (9, 7), (9, 8), (10, 8)
         ],
         portal_position=(5, 8),
-        robot_start_position=(0, 10),
+        bird_start_position=(0, 10),
         food_position=(0, 2)
     ),
     World(
@@ -41,7 +41,7 @@ WORLDS = [
             (10, 0), (10, 7)
         ],
         portal_position=(3, 1),
-        robot_start_position=(7, 8),
+        bird_start_position=(7, 8),
         food_position=(9, 4)
     )
 ]
