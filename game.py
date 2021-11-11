@@ -72,7 +72,8 @@ class Game:
             self.world = self.world + 1
             self.current_world = WORLDS[self.world]
             self.draw_world()
-            for count in range(self.world+1):
+            num_birds = self.world + 1
+            for count in range(num_birds):
                 self.create_robot_bird()
             for bird in self.birds:
                 bird.move()

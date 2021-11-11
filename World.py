@@ -45,6 +45,10 @@ class World:
         return False
 
     def cell_is_empty(self, cell):
-        return not self.cell_contains_portal(cell) and \
-            not self.cell_contains_food(cell) and \
-                not self.cell_contains_obstacle(cell)
+        if self.cell_contains_portal(cell):
+            return False
+        if self.cell_contains_obstacle(cell):
+            return False
+        if self.cell_contains_food(cell):
+            return False
+        return True
