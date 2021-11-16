@@ -12,20 +12,19 @@ class MoveObject:
         self.goto_start_position()
 
     def get_possible_positions(self):
-        forwards_position = self.get_up_position()
+        up_position = self.get_up_position()
         right_position = self.get_right_position()
         left_position = self.get_left_position()
-        backwards_position = self.get_down_position()
-
+        down_position = self.get_down_position()
         valid_directions = []
-        if self.game.current_world.cell_is_empty(forwards_position):
-            valid_directions.append(0)
-        if self.game.current_world.cell_is_empty(right_position):
+        if self.game.current_world.cell_is_empty(up_position):
             valid_directions.append(90)
-        if self.game.current_world.cell_is_empty(backwards_position):
-            valid_directions.append(180)
-        if self.game.current_world.cell_is_empty(left_position):
+        if self.game.current_world.cell_is_empty(right_position):
+            valid_directions.append(0)
+        if self.game.current_world.cell_is_empty(down_position):
             valid_directions.append(270)
+        if self.game.current_world.cell_is_empty(left_position):
+            valid_directions.append(180)
         return valid_directions
 
     def get_up_position(self):
@@ -91,11 +90,9 @@ class MoveObject:
             new_pos = self.get_right_position()
 
         # check there is no obstacle there
-        if not self.game.current_world.cell_contains_obstacle(new_pos):
-            if not self.game.current_world.cell_contains_portal(new_pos) and \
-                not self.game.current_world.cell_contains_food(new_pos):
-                self.current_position = new_pos
-                self.backward(STEP_SIZE)
+        if not self.game.current_world.cell_is_empty(new_pos):
+            self.current_position = new_pos
+            self.backward(STEP_SIZE)
 
         if self.allowed_through_portal:
             if self.game.current_world.cell_contains_portal(new_pos):
