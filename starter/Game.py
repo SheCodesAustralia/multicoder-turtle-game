@@ -32,7 +32,7 @@ class Game:
         self.screen.addshape(FOOD)
 
         canvas = self.screen.getcanvas()
-        canvas.itemconfig(self.screen._bgpic, anchor="sw")
+        canvas.itemconfig(self.screen._bgpic, anchor='sw')
         ##
         # YOUR CODE HERE
         ##
@@ -81,7 +81,7 @@ class Game:
         self.screen.setworldcoordinates(0, 0, 500, 500)
         self.screen.bgpic(OCEAN)
         canvas = self.screen.getcanvas()
-        canvas.itemconfig(self.screen._bgpic, anchor="sw")
+        canvas.itemconfig(self.screen._bgpic, anchor='sw')
         ##
         # YOUR CODE HERE
         ##

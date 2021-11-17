@@ -25,7 +25,7 @@ class Game:
         self.screen.addshape(FOOD)
 
         canvas = self.screen.getcanvas()
-        canvas.itemconfig(self.screen._bgpic, anchor="sw")
+        canvas.itemconfig(self.screen._bgpic, anchor='sw')
         self.update_score()
 
     def draw_world(self):
@@ -35,7 +35,7 @@ class Game:
     
     def update_score(self):
         self.score_display.clear()
-        self.score_display.write(f'Score: {self.score}', font=("Arial", 16, "normal"))
+        self.score_display.write(f'Score: {self.score}', font=('Arial', 16, 'normal'))
 
     def clear_world(self):
         turtle.clearscreen()
@@ -86,7 +86,7 @@ class Game:
         self.screen.bgpic(OCEAN)
 
         canvas = self.screen.getcanvas()
-        canvas.itemconfig(self.screen._bgpic, anchor="sw")
+        canvas.itemconfig(self.screen._bgpic, anchor='sw')
 
         self.update_score()
 
