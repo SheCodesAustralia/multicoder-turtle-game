@@ -1,5 +1,5 @@
 import turtle
-from config import STEP_SIZE, STAMP_SIZE
+from config import CELL_WIDTH, STAMP_SIZE
 
 
 class Obstacle(turtle.Turtle):
@@ -10,6 +10,6 @@ class Obstacle(turtle.Turtle):
         self.speed(10)
         self.shape(shape)
         self.penup()
-        self.shapesize(STEP_SIZE/STAMP_SIZE, STEP_SIZE/STAMP_SIZE, STEP_SIZE/STAMP_SIZE)
+        self.shapesize(CELL_WIDTH/STAMP_SIZE, CELL_WIDTH/STAMP_SIZE, CELL_WIDTH/STAMP_SIZE)
         self.goto(position)
         self.showturtle()

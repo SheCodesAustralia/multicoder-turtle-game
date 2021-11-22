@@ -1,5 +1,5 @@
 import turtle
-from config import STEP_SIZE, STAMP_SIZE
+from config import CELL_WIDTH, STAMP_SIZE
 
 
 class Obstacle(turtle.Turtle):

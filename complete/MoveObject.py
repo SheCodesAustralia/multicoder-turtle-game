@@ -1,4 +1,4 @@
-from config import STEP_SIZE
+from config import CELL_WIDTH
 from utils import convert_coord_to_grid_pos
 
 
@@ -54,16 +54,16 @@ class MoveObject:
         # check there is no obstacle there
         if self.game.current_world.cell_is_empty(new_pos):
             self.current_position = new_pos
-            self.forward(STEP_SIZE)
+            self.forward(CELL_WIDTH)
 
         if self.allowed_through_portal:
             if self.game.current_world.cell_contains_portal(new_pos):
                 self.current_position = new_pos
-                self.forward(STEP_SIZE)
+                self.forward(CELL_WIDTH)
                 self.enter_portal()
             if self.game.current_world.cell_contains_food(new_pos):
                 self.current_position = new_pos
-                self.forward(STEP_SIZE)
+                self.forward(CELL_WIDTH)
                 self.eat_food()
 
         if self.is_collision():
@@ -83,25 +83,25 @@ class MoveObject:
         if direction == 90.0:  # facing up
             new_pos = self.get_down_position()
         if direction == 0.0:  # facing right
-            new_pos = self.get_left_position()
+            new_pos = self.get_right_position()
         if direction == 270.0:  # facing down
             new_pos = self.get_up_position()
         if direction == 180.0:  # facing left
-            new_pos = self.get_right_position()
+            new_pos = self.get_left_position()
 
         # check there is no obstacle there
         if not self.game.current_world.cell_is_empty(new_pos):
             self.current_position = new_pos
-            self.backward(STEP_SIZE)
+            self.backward(CELL_WIDTH)
 
         if self.allowed_through_portal:
             if self.game.current_world.cell_contains_portal(new_pos):
                 self.current_position = new_pos
-                self.backward(STEP_SIZE)
+                self.backward(CELL_WIDTH)
                 self.enter_portal()
             if self.game.current_world.cell_contains_food(new_pos):
                 self.current_position = new_pos
-                self.backward(STEP_SIZE)
+                self.backward(CELL_WIDTH)
                 self.eat_food()
 
         if self.is_collision():

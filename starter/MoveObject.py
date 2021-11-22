@@ -1,4 +1,4 @@
-from config import STEP_SIZE
+from config import CELL_WIDTH
 from utils import convert_coord_to_grid_pos
 
 
@@ -12,17 +12,29 @@ class MoveObject:
         ##
         # YOUR CODE HERE
         ##
-    
+
     def get_up_position(self):
+        ##
+        # YOUR CODE HERE
+        ##
         pass
 
     def get_right_position(self):
+        ##
+        # YOUR CODE HERE
+        ##
         pass
 
     def get_down_position(self):
+        ##
+        # YOUR CODE HERE
+        ##
         pass
 
     def get_left_position(self):
+        ##
+        # YOUR CODE HERE
+        ##
         pass
 
     def get_possible_positions(self):
