@@ -58,13 +58,26 @@ class Game:
 
     def create_user_turtle(self, start_position):
         ##
-        # YOUR CODE HERE
+        self.myrtle = UserTurtle(
+            colour='#402e08',
+            shape='turtle',
+            speed=2,
+            game=self,
+            start_position=start_position
+        )
         ##
         pass
 
     def create_robot_bird(self):
         ##
-        # YOUR CODE HERE
+        bird = RobotBird(
+            colour='#000000',
+            shape='classic',
+            speed=3,
+            game=self,
+            start_position=self.current_world.bird_start_position
+        )
+        self.bird = bird
         ##
         pass
 
@@ -95,7 +108,8 @@ game.create_base_world()
 game.draw_world()
 
 ##
-# YOUR CODE HERE
+game.create_user_turtle((0, 0))
+game.create_robot_bird()
 ##
 
 turtle.mainloop()
