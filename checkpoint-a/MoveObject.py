@@ -10,7 +10,7 @@ class MoveObject:
         self.current_position = start_position
         self.allowed_through_portal = allowed_through_portal
         ##
-        # YOUR CODE HERE
+        self.goto_start_position()
         ##
 
     def get_up_position(self):
@@ -81,7 +81,12 @@ class MoveObject:
 
     def goto_start_position(self):
         ##
-        # YOUR CODE HERE
+        self.penup()
+        self.hideturtle()
+        self.current_position = self.start_position
+        start_position = convert_coord_to_grid_pos(self.start_position)
+        self.goto(start_position)
+        self.showturtle()
         ##
         pass
 
