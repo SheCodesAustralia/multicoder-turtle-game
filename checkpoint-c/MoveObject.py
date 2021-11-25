@@ -39,7 +39,21 @@ class MoveObject:
 
     def get_possible_positions(self):
         ##
-        # YOUR CODE HERE
+        up_position = self.get_up_position()
+        right_position = self.get_right_position()
+        left_position = self.get_left_position()
+        down_position = self.get_down_position()
+
+        valid_directions = []
+        if self.game.current_world.cell_is_empty(up_position):
+            valid_directions.append(90)
+            if self.game.current_world.cell_is_empty(some_position):
+            valid_directions.append(x)
+        if self.game.current_world.cell_is_empty(some_position):
+            valid_directions.append(x)
+        if self.game.current_world.cell_is_empty(some_position):
+            valid_directions.append(x)
+        return valid_directions
         ##
         pass
 
@@ -54,7 +68,6 @@ class MoveObject:
             new_pos = self.get_down_position()
         if direction == 180.0:  # facing left
             new_pos = self.get_left_position()
-
         if self.game.current_world.cell_is_empty(new_pos):
             self.current_position = new_pos
             self.forward(CELL_WIDTH)
@@ -81,13 +94,13 @@ class MoveObject:
 
     def turn_right(self):
         ##
-        # YOUR CODE HERE
+        self.left(90)
         ##
         pass
 
     def turn_left(self):
         ##
-        self.left(90)
+        # YOUR CODE HERE
         ##
         pass
 

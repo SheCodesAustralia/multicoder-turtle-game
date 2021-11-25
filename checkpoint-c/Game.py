@@ -11,15 +11,10 @@ class Game:
 
     def __init__(self):
         self.screen = turtle.Screen()
-        self.current_world = World(
-            obstacle_positions=[],
-            portal_position=(0, 1),
-            bird_start_position=(0, 2),
-            food_position=(0, 3)
-        )
         self.bird = None
         ##
-        # YOUR CODE HERE
+        self.world = 0
+        self.current_world = WORLDS[self.world]
         ##
 
     def create_base_world(self):
@@ -40,7 +35,8 @@ class Game:
 
     def draw_world(self):
         ##
-        # YOUR CODE HERE
+        self.current_world.draw_obstacles()
+        self.current_world.draw_portal()
         ##
         pass
     
@@ -110,6 +106,9 @@ game.draw_world()
 ##
 game.create_user_turtle((0, 0))
 game.create_robot_bird()
+
+while True:
+    game.bird.move()
 ##
 
 turtle.mainloop()

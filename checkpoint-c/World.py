@@ -14,13 +14,16 @@ class World:
 
     def draw_obstacles(self):
         ##
-        # YOUR CODE HERE
+        for position in self.obstacle_positions:
+            position = convert_coord_to_grid_pos(position)
+            Obstacle(ROCK, position)
         ##
         pass
 
     def draw_portal(self):
         ##
-        # YOUR CODE HERE
+        portal_grid_position = convert_coord_to_grid_pos(self.portal_position)
+        Obstacle(PORTAL, portal_grid_position)
         ##
         pass
 
@@ -32,13 +35,19 @@ class World:
 
     def cell_contains_portal(self, cell):
         ##
-        # YOUR CODE HERE
-        ##
+        if cell == self.portal_position:
+            return True
         return False
+        ##
 
     def cell_contains_obstacle(self, cell):
         ##
-        # YOUR CODE HERE
+        if cell in self.obstacle_positions:
+            return True
+        if cell[0] < 0 or cell[0] >= NUM_GRID_ROWS:
+            return True
+        if cell[1] < 0 or cell[1] >= NUM_GRID_ROWS:
+            return True
         ##
         return False
 
@@ -50,6 +59,9 @@ class World:
 
     def cell_is_empty(self, cell):
         ##
-        # YOUR CODE HERE
+        if self.cell_contains_portal(cell):
+            return False
+        if self.cell_contains_obstacle(cell):
+            return False
         ##
         return True
