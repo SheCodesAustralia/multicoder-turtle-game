@@ -45,7 +45,7 @@ class MoveObject:
 
     def move_forward(self):
         ##
-        self.forward(CELL_WIDTH)
+        # YOUR CODE HERE
         ##
         pass
 
