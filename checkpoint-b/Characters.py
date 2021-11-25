@@ -19,7 +19,8 @@ class UserTurtle(CustomTurtle):
     def __init__(self, colour, shape, speed, game, start_position):
         super().__init__(colour, shape, speed, game, True, start_position)
         ##
-        # YOUR CODE HERE
+        turtle.onkey(self.turn_left, 'Left')
+        turtle.onkey(self.move_forward, 'Up')
         ##
 
 
@@ -32,8 +33,6 @@ class RobotBird(CustomTurtle):
 
     def move(self):
         ##
-        num_steps = random.randint(1, 5)
-        for step in range(num_steps):
-            self.move_forward()
+        # YOUR CODE HERE
         ##
         pass
