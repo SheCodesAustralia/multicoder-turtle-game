@@ -14,7 +14,18 @@ class World:
 
     def draw_obstacles(self):
         ##
-        # YOUR CODE HERE
+        position = convert_coord_to_grid_pos((0, 7))
+        Obstacle(ROCK, position)
+        position = convert_coord_to_grid_pos((1, 7))
+        Obstacle(ROCK, position)
+        position = convert_coord_to_grid_pos((2, 1))
+        Obstacle(ROCK, position)
+        position = convert_coord_to_grid_pos((2, 2))
+        Obstacle(ROCK, position)
+        position = convert_coord_to_grid_pos((3, 2))
+        Obstacle(ROCK, position)
+        position = convert_coord_to_grid_pos((3, 6))
+        Obstacle(ROCK, position)
         ##
         pass
 
@@ -38,7 +49,12 @@ class World:
 
     def cell_contains_obstacle(self, cell):
         ##
-        # YOUR CODE HERE
+        if cell in self.obstacle_positions:
+            return True
+        if cell[0] < 0 or cell[0] >= NUM_GRID_ROWS:
+            return True
+        if cell[1] < 0 or cell[1] >= NUM_GRID_ROWS:
+            return True
         ##
         return False
 
@@ -50,6 +66,7 @@ class World:
 
     def cell_is_empty(self, cell):
         ##
-        # YOUR CODE HERE
+        if self.cell_contains_obstacle(cell):
+            return False
         ##
         return True

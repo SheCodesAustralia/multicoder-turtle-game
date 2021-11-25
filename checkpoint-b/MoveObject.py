@@ -63,13 +63,13 @@ class MoveObject:
 
     def turn_right(self):
         ##
-        # YOUR CODE HERE
+        self.left(90)
         ##
         pass
 
     def turn_left(self):
         ##
-        self.left(90)
+        # YOUR CODE HERE
         ##
         pass
 

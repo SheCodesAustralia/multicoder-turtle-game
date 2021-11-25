@@ -33,6 +33,8 @@ class RobotBird(CustomTurtle):
 
     def move(self):
         ##
-        # YOUR CODE HERE
+        num_steps = random.randint(1, 5)
+        for step in range(num_steps):
+            self.move_forward()
         ##
         pass

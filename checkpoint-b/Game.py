@@ -40,7 +40,7 @@ class Game:
 
     def draw_world(self):
         ##
-        # YOUR CODE HERE
+        self.current_world.draw_obstacles()
         ##
         pass
     
@@ -110,6 +110,9 @@ game.draw_world()
 ##
 game.create_user_turtle((0, 0))
 game.create_robot_bird()
+
+while True:
+    game.bird.move()
 ##
 
 turtle.mainloop()
